@@ -63,7 +63,6 @@ Makes the media toolbar looks beautiful.
 
 ### HTML data-* configuration
 
-* toolbars, sets the list of toolbars to show.
 * placeholder, the placeholder that will be shown when the editor is empty.
 * toolbars, a comma separated string of toolbars widgets ids. If this attribute is not defined only the basic editor is loaded.
 
