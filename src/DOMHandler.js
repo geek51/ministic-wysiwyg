@@ -69,9 +69,14 @@ define(function(){
 
       return false;
     },
-    wrap: function(element, new_element) {
-      element.parentNode.insertBefore(new_element, element);
-      new_element.appendChild(element);
+    /**
+     * Wraps an existet element with the specified new element
+     * @param  HTMLElement element     The element to be wrapped
+     * @param  HTMLElement wrap_element The wrap element
+     */
+    wrap: function(element, wrap_element) {
+      element.parentNode.insertBefore(wrap_element, element);
+      wrap_element.appendChild(element);
     }
   }
 });

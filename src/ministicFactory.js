@@ -37,10 +37,16 @@ define(['src/DOMHandler'], function(DOMHandler) {
     return config;
   }
 
+  /**
+   * Generate a placeholder for this infusion
+   * @param  HTMLElement target
+   * @param  String text the placeholder text
+   * @return HTMLElement The placeholder element
+   */
   function get_placeholder(target, text) {
     var place_holder = DOMHandler.create('p',{
         'class': 'ministic-placeholder',
-        'styles': {'position':'absolute', 'zIndex': 99, 'top': '5px', 'margin': '0px'},
+        'styles': {'position':'absolute', 'zIndex': 99, 'top': '2px', 'margin': '0px'},
         'text': text
     });
 
