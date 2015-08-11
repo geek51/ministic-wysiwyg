@@ -29,10 +29,11 @@ define(['src/DOMHandler'], function(DOMHandler) {
    * @return Object the parsed configuration.
    */
   function parse_config(DOMElement) {
-    var config = {};
+    var config = {},
+        toolbars = DOMElement.getAttribute('data-toolbars');
 
     config.placeholder = DOMElement.getAttribute('data-placeholder') || 'Edit content...';
-    config.toolbars = (DOMElement.getAttribute('data-toolbars') || '').split(',');
+    config.toolbars = toolbars ?  toolbars.split(',') : [];
 
     return config;
   }
