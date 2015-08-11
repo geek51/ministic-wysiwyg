@@ -77,6 +77,40 @@ define(function(){
     wrap: function(element, wrap_element) {
       element.parentNode.insertBefore(wrap_element, element);
       wrap_element.appendChild(element);
+    },
+    /**
+     * Creates a new link tag.
+     * @param  String src
+     */
+    addLinkTag: function(src) {
+      document.getElementsByTagName('head')[0].appendChild(
+        this.create('link', {href: src, type: 'text/css', rel: 'stylesheet'})
+      );
+    },
+    /**
+     * Adds the pased css class to the element
+     * @param  HTMLElement element
+     * @param  String class
+     */
+    addClass: function(element, new_class) {
+      var existentClasess = element.className? element.className.split(' ') : [];
+      existentClasess.push(new_class);
+
+      element.className = existentClasess.join(' ');
+    },
+    /**
+     * Removes the pased css class to the element
+     * @param  HTMLElement element
+     * @param  String class
+     */
+    removeClass: function(element, old_class) {
+      var existentClasess = element.className? element.className.split(' ') : [],
+          index = existentClasess.indexOf(old_class);
+
+      if (~index) {
+        existentClasess.splice(index, 1);
+        element.className = existentClasess.join(' ');
+      }
     }
   }
 });
