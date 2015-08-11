@@ -94,8 +94,10 @@ define(function(){
      */
     addClass: function(element, new_class) {
       var existentClasess = element.className? element.className.split(' ') : [];
-      existentClasess.push(new_class);
 
+      if (~existentClasess.indexOf(new_class)) return;
+
+      existentClasess.push(new_class);
       element.className = existentClasess.join(' ');
     },
     /**
