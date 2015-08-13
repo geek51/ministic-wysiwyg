@@ -1,0 +1,46 @@
+@keyframes showToolbar {
+  from {opacity: 0; margin-top: -20px;}
+  to {opacity: 1; margin-top: -39px;}
+}
+
+@keyframes hideToolbar {
+  from {opacity: 1; margin-top: -39px;}
+  to {opacity: 0; margin-top: -20px;}
+}
+
+.ministic-fancy-toolbar {
+  background-color: black;
+  border-radius: 5px;
+  display: none;
+  opacity: 0;
+  position: absolute;
+  padding: 3px;
+}
+
+.ministic-fancy-toolbar:after {
+  content: "";
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid black;
+  top: 28px;
+  left: 6px;
+  margin-left: -5px;
+}
+
+.ministic-fancy-toolbar-show {
+  animation: showToolbar 200ms ease-in-out both;
+}
+
+.ministic-fancy-toolbar-hide {
+  animation: hideToolbar 200ms ease-in-out both;
+}
+
+.ministic-fancy-toolbar-button {
+  background-color: transparent;
+  color: white;
+  border: 0 solid;
+  font-size: 1em;
+  font-family: "Times New Roman";
+  width: 40px;
+}
