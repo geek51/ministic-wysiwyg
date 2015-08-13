@@ -1,15 +1,58 @@
+<!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+  <style media="screen">
+  body {
+    font-size: arial;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .a-title{
+    font-size: 22px;
+    color: gray;
+  }
+
+  .ministic-editor{
+    border: 1px solid blue;
+    padding: 10px 5px;
+  }
+  </style>
+  </style>
+  </head>
   <body>
-    <div class="ministic-editor">
-    <h1>Probando probando</h1>
-    <p>Un texto para la prueba</p>
-    <ul>
-    <li>La lista</li>
-    <li>La 2 lista</li>
-    <li>La 3 lista</li>
-    <li>La 4 lista</li>
-    </ul>
+    <h1 class="a-title">Editor with only the fancy toolbar</h1>
+    <div class="ministic-editor" data-toolbars="fancy" id="main_editor">
+      <h1>Testing with predefined text</h1>
+      <p>This a foo paragraph</p>
+      <ul>
+      <li>1 li item</li>
+      <li>2 li item</li>
+      <li>3 li item</li>
+      <li>4 li item</li>
+      </ul>
+    </div>
+
+
+    <hr>
+    <h1 class="a-title">Editor with the fancy toolbar and media toolbar</h1>
+    <div class="ministic-editor" data-placeholder="Add your comments"  data-toolbars="fancy,media" id="secondary_editor">
+    </div>
+
+    <hr>
+    <h1 class="a-title">Editor with the media toolbar</h1>
+    <div class="ministic-editor" data-placeholder="Only simple and predefined content" id="third_editor">
+
     </div>
   <script src="/require.js" data-main="/ministic"></script>
   </body>
