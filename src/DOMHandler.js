@@ -120,7 +120,7 @@ define(function(){
      * @param  HTMLElement child
      * @return Boolean true if the child was found inside parent, false otherwise.
      */
-    contains(parent, child) {
+    contains: function(parent, child) {
       var parentNode = child.parentNode;
 
       if (!parentNode) return false;
