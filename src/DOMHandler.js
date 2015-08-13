@@ -113,6 +113,30 @@ define(function(){
         existentClasess.splice(index, 1);
         element.className = existentClasess.join(' ');
       }
+    },
+    /**
+     * Checks if the child is son of the parent
+     * @param  HTMLElement parent
+     * @param  HTMLElement child
+     * @return Boolean true if the child was found inside parent, false otherwise.
+     */
+    contains(parent, child) {
+      var parentNode = child.parentNode;
+
+      if (!parentNode) return false;
+
+      if (parentNode == parent) return true;
+
+      // checks all the parent until it gets to the wanted parent or the body tag
+      while (parentNode != parent) {
+        if (parentNode == document.body) return false;
+
+        parentNode = parentNode.parentNode;
+
+        if (parentNode == null) return false;
+      }
+
+      return true;
     }
   }
 });
