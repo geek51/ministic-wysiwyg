@@ -11,7 +11,7 @@ define(function(require) {
       // async load of each toolbar
       for (var i = 0, total = toolbars.length; i < total; i++) {
         require(['./toolbars/toolbar-' + toolbars[i]], function(toolbar){
-          toolbar.init(ministicInsance);
+           new toolbar(ministicInsance);
         });
       }
     }
