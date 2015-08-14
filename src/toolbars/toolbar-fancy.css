@@ -1,6 +1,16 @@
+@-webkit-keyframes showToolbar {
+  from {opacity: 0; margin-top: -20px;}
+  to {opacity: 1; margin-top: -39px;}
+}
+
 @keyframes showToolbar {
   from {opacity: 0; margin-top: -20px;}
   to {opacity: 1; margin-top: -39px;}
+}
+
+@-webkit-keyframes hideToolbar {
+  from {opacity: 1; margin-top: -39px;}
+  to {opacity: 0; margin-top: -20px;}
 }
 
 @keyframes hideToolbar {
@@ -29,10 +39,12 @@
 }
 
 .ministic-fancy-toolbar-show {
+  -webkit-animation: showToolbar 200ms ease-in-out both;
   animation: showToolbar 200ms ease-in-out both;
 }
 
 .ministic-fancy-toolbar-hide {
+  -webkit-animation: hideToolbar 200ms ease-in-out both;
   animation: hideToolbar 200ms ease-in-out both;
 }
 

@@ -1,4 +1,33 @@
 define(function(){
+  // overrides the default add event listener to add a few workarrounds
+  var defaultAddEvent = HTMLElement.prototype.addEventListener;
+
+  function get_transition_eventname(type, element) {
+    var transitions = {
+        'animation':'animationend',
+        'WebkitAnimation':'webkitAnimationEnd',
+        'OAnimation':'oAnimationEnd',
+        'MozAnimation':'animationend',
+      },
+      t;
+
+    for(t in transitions){
+        if( element.style[t] !== undefined ){
+            return transitions[t];
+        }
+    }
+
+    return 'animationend'; // default value
+  }
+
+  HTMLElement.prototype.addEventListener = function(type, listener) {
+    if (type == 'animationend') {
+      type = get_transition_eventname(type, this);
+    }
+
+    defaultAddEvent.call(this, type, listener, false);
+  }
+
   return {
     /**
      * Searches in the DOM for new instances.
