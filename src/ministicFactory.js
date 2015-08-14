@@ -100,7 +100,7 @@ define(['src/DOMHandler'], function(DOMHandler) {
       return this;
     },
     isEmpty: function() {
-      return this.element.innerText.replace(/^\s+|\s$/g, '').length == 0;
+      return this.element.textContent.replace(/^\s+|\s$/g, '').length == 0;
     }
   }
 
