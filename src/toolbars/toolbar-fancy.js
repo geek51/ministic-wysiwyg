@@ -90,7 +90,7 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
         var Selection = window.getSelection(),
             range = Selection.getRangeAt(0);
 
-        if (Selection.type != 'Range' || !DOMHandler.contains(mInstance.ministicInstance.element, range.startContainer) ) {
+        if (Selection.isCollapsed || !DOMHandler.contains(mInstance.ministicInstance.element, range.startContainer) ) {
           if (mInstance.visible) mInstance.hide();
           return;
         }
