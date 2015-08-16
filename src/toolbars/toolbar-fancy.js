@@ -1,4 +1,5 @@
 define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
+
   /**
    * Init all the instance data and events
    * @param  MinisticInsance ministicInsance
@@ -7,8 +8,6 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
     this.ministicInstance = ministicInsance;
     this.toolbar =  null;
     this.visible = false;
-
-    DOMHandler.addLinkTag(require.toUrl('') + 'src/toolbars/toolbar-fancy.css');
 
     this.create();
 
@@ -150,6 +149,8 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
         return;
       }
 
+      this.loadAssets();
+
       toolbar = DOMHandler.create('div', {'id': 'ministic-fancy-toolbar', 'class':'ministic-fancy-toolbar'})
       buttons = this.buttons;
 
@@ -171,6 +172,13 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
 
       document.body.appendChild(toolbar);
       this.toolbar = toolbar;
+    },
+    /**
+     * Loads all the assets required by this toolbar.
+     * This function must be called only one time.
+     */
+    loadAssets: function() {
+      DOMHandler.addLinkTag(require.toUrl('') + 'src/toolbars/toolbar-fancy.css');
     }
   };
 
