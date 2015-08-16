@@ -1,4 +1,19 @@
 define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
+  /**
+   * Stores the last used buttons.
+   * @see Handler.highlightButton
+   * @type Array
+   */
+  var current_selected_buttons = [];
+
+  /**
+   * Get the button tag that represents
+   * @param  Object currentElement The button descriotion
+   * @return String the button tag that represents
+   */
+  function get_button_tag(currentElement) {
+    return currentElement.argument || currentElement.text || currentElement.command;
+  }
 
   /**
    * If the user selects a element that executes a formatBlock action, it doesn't
@@ -85,7 +100,7 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
         'command': 'bold'
       },
       {
-        'text': 'i',
+        'text': 'I',
         'command': 'italic'
       },
       {
@@ -169,6 +184,8 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
 
       toolbar.style.top = (rects.top + document.body.scrollTop) + 'px';
       toolbar.style.left = rects.left + 'px';
+
+      this.highlightButton();
     },
     /**
      * Hides de toolbar
@@ -198,6 +215,63 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
       }
 
       document.execCommand(btn.command, false, btn.argument || null);
+      this.highlightButton();
+    },
+    /**
+     * Selects the toolbar buttons according to the selected range
+     */
+    highlightButton: function() {
+      // Deselecs all the current highlighted button
+      if (current_selected_buttons.length > 0) {
+        for (var i = 0, total_selected = current_selected_buttons.length; i < total_selected; i++) {
+          DOMHandler.removeClass(current_selected_buttons[i], 'ministic-fancy-toolbar-button-selected');
+        }
+
+        current_selected_buttons.length = 0;
+      }
+
+      var range = window.getSelection().getRangeAt(0),
+          toolbar_buttons,
+          toolbar_tags,
+          current_element,
+          button_index,
+          button_found,
+          align_style;
+
+      // when the user selects more than one element, take the common container
+      // as current_element
+      if (range.startContainer != range.endContainer) {
+        current_element = range.commonAncestorContainer
+
+        if (current_element == this.ministicInstance.element) return;
+      } else {
+        current_element = range.startContainer;
+      }
+
+      toolbar_buttons = this.toolbar.children;
+      toolbar_tags = this.buttons.map(get_button_tag);
+
+
+      // Loop thru the parents and select the buttons according the element style
+      while (current_element != this.ministicInstance.element) {
+        button_index = toolbar_tags.indexOf(current_element.tagName);
+        if (~button_index) {
+          button_found = toolbar_buttons[button_index];
+          DOMHandler.addClass(button_found, 'ministic-fancy-toolbar-button-selected');
+          current_selected_buttons.push(button_found);
+        }
+
+        if (current_element.style && (current_element.style.textAlign == 'center' || current_element.style.textAlign == 'left')) {
+          align_style = current_element.style.textAlign;
+          button_index = toolbar_tags.indexOf('justify' + align_style[0].toUpperCase() + align_style.substring(1));
+          button_found = toolbar_buttons[button_index];
+          DOMHandler.addClass(button_found, 'ministic-fancy-toolbar-button-selected');
+          current_selected_buttons.push(button_found);
+        }
+
+        current_element = current_element.parentNode;
+      }
+
     },
     /**
      * Creates the toolbar if it wasn't created, otherwise it only assings The

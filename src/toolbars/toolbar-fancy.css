@@ -92,3 +92,8 @@
   font-weight: bold;
   width: 40px;
 }
+
+.ministic-fancy-toolbar-button-selected,
+.ministic-fancy-toolbar-button:hover {
+  color: #FF9900
+}
