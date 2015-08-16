@@ -65,6 +65,8 @@ define(function(){
     create: function(tagName, properties) {
       var element = document.createElement(tagName);
 
+      if (!properties) return element;
+
       for (var propertyName in properties) {
         switch (propertyName) {
           case 'text':
@@ -106,6 +108,21 @@ define(function(){
     wrap: function(element, wrap_element) {
       element.parentNode.insertBefore(wrap_element, element);
       wrap_element.appendChild(element);
+    },
+    /**
+     * Replaces oldElement with newElement, copies all the child from oldElement
+     * to newElement
+     * @param  HTMLElement newElement
+     * @param  HTMLElement oldElement
+     */
+    replace: function(newElement, oldElement) {
+      var parentNode = oldElement.parentNode;
+
+      while (oldElement.hasChildNodes()) {
+        newElement.appendChild(oldElement.firstChild);
+      }
+
+      parentNode.replaceChild(newElement, oldElement);
     },
     /**
      * Creates a new link tag.
@@ -166,6 +183,31 @@ define(function(){
       }
 
       return true;
+    },
+    /**
+     * Checks if the child has a parent with the specified tag.
+     * @param  HTMLElement child
+     * @param  String HTML tag
+     * @return Mixed Parent HTMLElement or null if the parent doesn't exist or
+     * contains the child element.
+     */
+    getParentByTag: function(child, parentTag) {
+      var parentNode = child.parentNode;
+
+      if (!parentNode) return null;
+
+      if (parent.tagName == parentTag) return parentNode;
+
+      // checks all the parent until it gets to the wanted parent or the body tag
+      while (parentNode.tagName != parentTag) {
+        if (parentNode == document.body) return null;
+
+        parentNode = parentNode.parentNode;
+
+        if (parentNode == null) return null;
+      }
+
+      return parentNode;
     }
   }
 });
