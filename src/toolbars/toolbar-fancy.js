@@ -221,7 +221,7 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
      * Selects the toolbar buttons according to the selected range
      */
     highlightButton: function() {
-      // Deselecs all the current highlighted button
+      // Deselects all the current highlighted button
       if (current_selected_buttons.length > 0) {
         for (var i = 0, total_selected = current_selected_buttons.length; i < total_selected; i++) {
           DOMHandler.removeClass(current_selected_buttons[i], 'ministic-fancy-toolbar-button-selected');
@@ -238,7 +238,7 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
           button_found,
           align_style;
 
-      // when the user selects more than one element, take the common container
+      // When the user selects more than one element, take the common container
       // as current_element
       if (range.startContainer != range.endContainer) {
         current_element = range.commonAncestorContainer
