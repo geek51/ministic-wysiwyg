@@ -18,7 +18,7 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
       return {'stopProcess': false};
     }
 
-    // finds the element to be replacedº
+    // finds the element to be replaced
     if (range.startContainer.tagName == btn.argument) {
       node_to_replace = range.startContainer;
     } else {
@@ -30,7 +30,7 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
       return {'stopProcess': false};
     }
 
-    // by default replace the element with a paragraphº
+    // by default replace the element with a paragraph
     new_parent = DOMHandler.create('p');
     DOMHandler.replace(new_parent, node_to_replace);
 
