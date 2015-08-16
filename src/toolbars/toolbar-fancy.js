@@ -1,6 +1,53 @@
 define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
 
   /**
+   * If the user selects a element that executes a formatBlock action, it doesn't
+   * toogle the element, this function take cares of this action.
+   * @param Object btn The button cofiguration
+   * @return Object {
+   *   stopProcess: true|false tells if the process should be stoped
+   * }
+   */
+  function toggle_element(btn) {
+    var range = window.getSelection().getRangeAt(0),
+        node_to_replace,
+        new_parent;
+
+    // if the selected elements are more than one, doesn't do anything
+    if (range.startContainer != range.endContainer) {
+      return {'stopProcess': false};
+    }
+
+    // finds the element to be replacedº
+    if (range.startContainer.tagName == btn.argument) {
+      node_to_replace = range.startContainer;
+    } else {
+      node_to_replace = DOMHandler.getParentByTag(range.startContainer, btn.argument);
+    }
+
+    // if the element wasn't found return and continue with the process
+    if (!node_to_replace) {
+      return {'stopProcess': false};
+    }
+
+    // by default replace the element with a paragraphº
+    new_parent = DOMHandler.create('p');
+    DOMHandler.replace(new_parent, node_to_replace);
+
+    // finally select the new node
+    var currentSelection = window.getSelection(),
+        newRange = document.createRange();
+
+    currentSelection.removeAllRanges();
+
+    newRange.selectNodeContents(new_parent);
+    currentSelection.addRange(newRange);
+
+    return {'stopProcess': true};
+  }
+
+
+  /**
    * Init all the instance data and events
    * @param  MinisticInsance ministicInsance
    */
@@ -48,22 +95,26 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
       {
         'text': 'H1',
         'command': 'formatBlock',
-        'argument': 'H1'
+        'argument': 'H1',
+        'preprocess': toggle_element
       },
       {
         'text': 'H2',
         'command': 'formatBlock',
-        'argument': 'H2'
+        'argument': 'H2',
+        'preprocess': toggle_element
       },
       {
         'text': 'H3',
         'command': 'formatBlock',
-        'argument': 'H3'
+        'argument': 'H3',
+        'preprocess': toggle_element
       },
       {
         'icon': 'quotes-left',
         'command': 'formatBlock',
-        'argument': 'BLOCKQUOTE'
+        'argument': 'BLOCKQUOTE',
+        'preprocess': toggle_element
       },
       {
         'icon': 'paragraph-center',
@@ -139,6 +190,13 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
       if (!(button_index = e.target.getAttribute('data-index-cmd'))) return;
 
       btn = this.buttons[button_index];
+
+      if (btn.preprocess) {
+        var response = btn.preprocess(btn);
+
+        if (response.stopProcess) return;
+      }
+
       document.execCommand(btn.command, false, btn.argument || null);
     },
     /**
