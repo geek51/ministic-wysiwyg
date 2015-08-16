@@ -61,13 +61,17 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
         'argument': 'H3'
       },
       {
-        'text': '"',
+        'icon': 'quotes-left',
         'command': 'formatBlock',
         'argument': 'BLOCKQUOTE'
       },
       {
-        'text': '-',
+        'icon': 'paragraph-center',
         'command': 'justifyCenter'
+      },
+      {
+        'icon': 'paragraph-left',
+        'command': 'justifyLeft'
       }
     ],
     /**
@@ -142,7 +146,7 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
      * current toolbar.
      */
     create: function() {
-      var toolbar, buttons;
+      var toolbar, buttons, btn_conf;
       // One toolbar is shared with all Ministic instances.
       if (toolbar = document.getElementById('ministic-fancy-toolbar')) {
         this.toolbar = toolbar;
@@ -155,11 +159,20 @@ define(['src/DOMHandler', 'require'], function(DOMHandler, require) {
       buttons = this.buttons;
 
       for (var i = 0, total = buttons.length; i < total; i++) {
-        toolbar.appendChild(DOMHandler.create('button', {
+        btn_conf = {
           'class':'ministic-fancy-toolbar-button',
-          'text': buttons[i].text,
           'data-index-cmd': i
-        }));
+        };
+
+        if (buttons[i].text) {
+          btn_conf.text = buttons[i].text;
+        }
+
+        if (buttons[i].icon) {
+          btn_conf.class += ' toolbar-icon-' + buttons[i].icon;
+        }
+
+        toolbar.appendChild(DOMHandler.create('button', btn_conf));
       }
 
       // when the animation ends hide the toolbar
