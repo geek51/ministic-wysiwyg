@@ -1,20 +1,20 @@
 @-webkit-keyframes showToolbar {
   from {opacity: 0; margin-top: -20px;}
-  to {opacity: 1; margin-top: -39px;}
+  to {opacity: 1; margin-top: -62px;}
 }
 
 @keyframes showToolbar {
   from {opacity: 0; margin-top: -20px;}
-  to {opacity: 1; margin-top: -39px;}
+  to {opacity: 1; margin-top: -62px;}
 }
 
 @-webkit-keyframes hideToolbar {
-  from {opacity: 1; margin-top: -39px;}
+  from {opacity: 1; margin-top: -62px;}
   to {opacity: 0; margin-top: -20px;}
 }
 
 @keyframes hideToolbar {
-  from {opacity: 1; margin-top: -39px;}
+  from {opacity: 1; margin-top: -62px;}
   to {opacity: 0; margin-top: -20px;}
 }
 
@@ -59,7 +59,8 @@
   display: none;
   opacity: 0;
   position: absolute;
-  padding: 3px;
+  padding: 0px;
+  z-index: 99999;
 }
 
 .ministic-fancy-toolbar:after {
@@ -68,9 +69,8 @@
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 10px solid black;
-  top: 26px;
-  left: 6px;
-  margin-left: -5px;
+  top: 50px;
+  left: 16px;
 }
 
 .ministic-fancy-toolbar-show {
@@ -90,7 +90,9 @@
   font-size: 1em;
   font-family: "Times New Roman";
   font-weight: bold;
-  width: 40px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
 }
 
 .ministic-fancy-toolbar-button-selected,
