@@ -107,6 +107,17 @@ define(['src/DOMHandler'], function(DOMHandler) {
      * Creates a new paragraph when the user press the return key.
      */
     forceParagraphOnNewLine: function() {
+      if (this.isEmpty()) {
+        var mElement = this.element,
+            fn_focus = function(ev){
+              setTimeout(function(){
+                document.execCommand('formatBlock', false, 'p');
+                mElement.removeEventListener('focus', fn_focus);
+              }, 100);
+            };
+
+        mElement.addEventListener('focus', fn_focus);
+      }
       this.element.addEventListener('keyup', function(ev){
           if(ev.keyCode != '13') return;
           document.execCommand('formatBlock', false, 'p');
