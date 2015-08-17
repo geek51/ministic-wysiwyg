@@ -13,6 +13,7 @@ define(['src/DOMHandler'], function(DOMHandler) {
         this.id = DOMElement.id;
         this.config = parse_config(DOMElement);
         this.placeHolder = null;
+        this.forceParagraphOnNewLine();
       };
 
   /**
@@ -101,6 +102,15 @@ define(['src/DOMHandler'], function(DOMHandler) {
     },
     isEmpty: function() {
       return this.element.textContent.replace(/^\s+|\s$/g, '').length == 0;
+    },
+    /**
+     * Creates a new paragraph when the user press the return key.
+     */
+    forceParagraphOnNewLine: function() {
+      this.element.addEventListener('keyup', function(ev){
+          if(ev.keyCode != '13') return;
+          document.execCommand('formatBlock', false, 'p');
+      });
     }
   }
 
